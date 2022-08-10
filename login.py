@@ -8,7 +8,7 @@ def validateLogin(username, password):
 
 #window
 tkWindow = Tk()  
-tkWindow.geometry('400x150')  
+tkWindow.geometry('200x200')  
 tkWindow.title('Tkinter Login Form - pythonexamples.org')
 
 #username label and text entry box
@@ -22,6 +22,7 @@ password = StringVar()
 passwordEntry = Entry(tkWindow, textvariable=password, show='*').grid(row=1, column=1)  
 
 validateLogin = partial(validateLogin, username, password)
+
 
 #login button
 loginButton = Button(tkWindow, text="Login", command=validateLogin).grid(row=4, column=0)  

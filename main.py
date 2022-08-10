@@ -1,111 +1,41 @@
 from tkinter import *
-import os.path
+from PIL import ImageTk,Image
 import sqlite3
-
-# EDIT_ME
-DBNAME = 'optics' + '.db' 
-# TABLENAME and COLUMNS are used to create the tabel with
-# 'CREATE TABLE TABLENAME (COLUMNS);'.
-TABLENAME = 'optics'
-# column_names, eventually this could be parsed from 'COLUMNS'. Currently it is
-# used to insert the data. 
-COLUMNS = [('type', 'TEXT'), ('manufacturer', 'TEXT'), 
-		('focal_length', 'TEXT'), ('wavelength', 'TEXT'),
-		('diameter', 'TEXT'), ('comment', 'TEXT')]
-
-class entry_field:
-	def __init__(self, parent, colName):
-
-		self.frame = Frame(parent)
-		self.frame.pack(side = TOP)
-		
-		self.label = Label(self.frame, text = colName)
-		self.label.configure(width = 15)
-		self.label.pack(side = LEFT)
-
-		self.entry = Entry(self.frame)
-		self.entry.pack(side = LEFT)
-		self.value = lambda : self.entry.get()
-
-		self.holdButton = Button(self.frame, command = self.hold)
-		self.holdButton.configure(text = 'Hold')
-		self.holdButton.pack(side = RIGHT)
-
-	def hold(self):
-		print('derp')
-
-
-class App:
-	def __init__(self, parent, columns, tablename, database):
-		self.myParent = parent
-		self.columns = columns
-		#self.colNames = get_colNames(COLUMNS)
-		self.tablename = tablename
-		self.database = database
-
-		self.Container = Frame(parent)
-		self.Container.pack()
-
-		self.check_connections(self.columns, self.tablename, self.database)
-		
-		self.entrycont = Frame(self.Container)
-		self.entrycont.pack(side = TOP)
-		self.make_buttons(self.myParent, self.columns)
-
-		# Next/esc container
-		self.next_esc = Frame(self.Container)
-		self.next_esc.pack(side = BOTTOM)
-
-		# Next button.
-		self.nextButton = Button(self.next_esc, command = self.nextItem)
-		self.nextButton.configure(text = 'Next')
-		self.nextButton.pack(side = LEFT)
-
-		# Escape the window.
-		self.Container.bind('<Escape>', self.quit)
-
-	def quit(self, event):
-		self.myParent.destroy()
-
-
-	
-	# Check for database.
-	def check_connections(self, columns, tablename, database):
-		if not os.path.exists(database):
-			link = sqlite3.connect(database)
-			curs = link.cursor()
-			tmplist = []
-			for i in columns:
-				tmplist.append(i[0] + ' ' +  i[1])
-			column_names = ', '.join(tmplist)
-			curs.execute("CREATE TABLE {0} (key INTEGER PRIMARY KEY ASC, {1})".format(tablename, column_names))
-			link.commit()
-			curs.close()
-
-	# Make data entry buttons.
-	def make_buttons(self, parent, column_names):
-		#self.colName for colName in column_names
-		self.factory = {}
-		for i in column_names:
-			colName = i[0]
-			self.factory[colName] = entry_field(self.entrycont, colName)
-
-	
-	# Next button handeler.
-	def nextItem(self):
-		# get data from buttons
-		data = []
-		for i in self.columns:
-			colName = i[0]
-			data.append(self.factory[colName].value())
-			curs.execute(
-				'INSERT INTO {0} ({1}) VALUES ({2})'.format(
-					self.tablename, self.colName, self.factory[colName].value()
-					))
+root=Tk()
+root.title('Codemy.com-Learn To Code!')
+root.geometry("400x200")
 
 
 
+f_name=Entry(root,width=30)
+f_name.grid(row=0,column=1,padx=20)
+l_name=Entry(root,width=30)
+l_name.grid(row=1,column=1)
+address=Entry(root,width=30)
+address.grid(row=2,column=1)
+city=Entry(root,width=30)
+city.grid(row=3,column=1)
+state=Entry(root,width=30)
+state.grid(row=4,column=1)
+zipcode=Entry(root,width=30)
+zipcode.grid(row=5,column=1)
 
-root = Tk()
-app = App(root, COLUMNS, TABLENAME, DBNAME)
+
+f_name_label = Label(root,text="First Name")
+f_name_label.grid(row=0,column=0)
+l_name_label = Label(root,text="Last Name")
+l_name_label.grid(row=1,column=0)
+address_label = Label(root,text="Address")
+address_label.grid(row=2,column=0)
+city_label = Label(root,text="City")
+city_label.grid(row=3,column=0)
+state_label = Label(root,text="State")
+state_label.grid(row=4,column=0)
+zipcode_label = Label(root,text="Zipcode")
+zipcode_label.grid(row=5,column=0)
+
+submit_btn = Button(root,text="Add Record To Database")
+submit_btn.grid(row=6,column=0,columnspan=2,pady=10,padx=10,ipadx=100)
+
+
 root.mainloop()
