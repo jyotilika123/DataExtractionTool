@@ -1,10 +1,10 @@
 import sqlite3
 
-conn = sqlite3.connect('Port2.db')
+conn = sqlite3.connect('Port1.db')
 
 cursor = conn.cursor()
 
-select_data = 'SELECT * FROM Jalukbari'
+select_data = "SELECT * FROM 'Paltan Bazar'"
 cursor.execute(select_data)
  
 row = cursor.fetchall()

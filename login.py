@@ -1,30 +1,41 @@
 from tkinter import *
-from functools import partial
+import main
+import pandas as pd
+
+users = {
+	"Jyoti": "Dimpi"
+}
 
 def validateLogin(username, password):
-	print("username entered :", username.get())
-	print("password entered :", password.get())
-	return
-
+	if users[username] == password:
+		# from main.py file
+		tkWindow.destroy()
+		main.mainWindow()
+	else:
+		messagebox("Error", "Authentication failed! Please fill the correct Username/Password")
+		
 #window
 tkWindow = Tk()  
-tkWindow.geometry('200x200')  
-tkWindow.title('Tkinter Login Form - pythonexamples.org')
+tkWindow.geometry('200x100')
+tkWindow.eval('tk::PlaceWindow . center')  
+tkWindow.title('Login')
 
 #username label and text entry box
 usernameLabel = Label(tkWindow, text="User Name").grid(row=0, column=0)
-username = StringVar()
-usernameEntry = Entry(tkWindow, textvariable=username).grid(row=0, column=1)  
+usernameEntry = Entry(tkWindow)
+usernameEntry.grid(row=0, column=1)  
 
 #password label and password entry box
 passwordLabel = Label(tkWindow,text="Password").grid(row=1, column=0)  
-password = StringVar()
-passwordEntry = Entry(tkWindow, textvariable=password, show='*').grid(row=1, column=1)  
+passwordEntry = Entry(tkWindow, show='*')
+passwordEntry.grid(row=1, column=1)  
 
-validateLogin = partial(validateLogin, username, password)
-
+def login():
+	u = usernameEntry.get()
+	p = passwordEntry.get()
+	validateLogin(u, p)
 
 #login button
-loginButton = Button(tkWindow, text="Login", command=validateLogin).grid(row=4, column=0)  
+loginButton = Button(tkWindow, text="Login", command=login).grid(row=4, column=0)  
 
 tkWindow.mainloop()

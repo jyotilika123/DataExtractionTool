@@ -1,11 +1,11 @@
 import sqlite3
 
-conn = sqlite3.connect('Port2.db')
+conn = sqlite3.connect('Port1.db')
 
 cursor = conn.cursor()
 
 sql = """
-    INSERT INTO Jalukbari 
+    INSERT INTO 'Paltan Bazar' 
     (Id, Billed_Unit, Name, Rate, Net_Amount) 
     VALUES (?, ?, ?, ?, ?)
 """

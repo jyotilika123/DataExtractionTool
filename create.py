@@ -13,7 +13,7 @@ sql_command1 = '''
         Name TEXT, 
         Rate INT,
         Net_Amount INT,
-        Place TEXT DEFAULT 'PaltanBazar',
+        Place TEXT DEFAULT 'Paltan Bazar',
         Port INT DEFAULT 1
     )'''
  
@@ -24,7 +24,7 @@ sql_command2 = '''
         Name TEXT, 
         Rate INT,
         Net_Amount INT,
-        Place TEXT 'Panbazar',
+        Place TEXT DEFAULT 'Panbazar',
         Port INT DEFAULT 1
     )'''
  
